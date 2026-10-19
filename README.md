@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # UKS-Care
 
 An offline Android app for school health units (UKS) to log patient visits quickly and keep medicine stock under control. This is the **Staff/Admin version**, intended for PMR members on duty or the UKS supervisor.
@@ -65,3 +66,6 @@ Build, test, lint and a release-style check:
 ## Out of Scope
 
 Login or multi-user, cloud sync, push notifications, backend server, and student or parent-facing apps.
+=======
+# UKS-Care
+>>>>>>> origin/main
