@@ -17,6 +17,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -33,6 +35,11 @@ import kotlinx.coroutines.launch
  * Durasi istirahat dihitung dari [sumberWaktu] yang di-inject dan diperbarui setiap
  * [detak], sehingga UI cukup membaca [PasienAktifUi.durasiIstirahatMillis] dan
  * pengujian dapat menggeser jam tanpa menunggu waktu nyata.
+ *
+ * Seluruh state dibagikan lewat `stateIn(WhileSubscribed)`: saat UI berhenti mengoleksi
+ * (layar di belakang), [detak] ikut berhenti sehingga tidak ada timer yang berjalan
+ * tanpa penonton. Karena itu layar WAJIB memakai `collectAsStateWithLifecycle`, bukan
+ * `collectAsState`, agar penghentian ini benar-benar terjadi.
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class DashboardViewModel(
@@ -41,6 +48,8 @@ class DashboardViewModel(
     private val sumberWaktu: SumberWaktu = SumberWaktuSistem,
     private val zone: ZoneId = ZoneId.systemDefault(),
     detak: Flow<Unit> = Ticker.detak(),
+    /** Lama data (termasuk detak) ditahan setelah kolektor terakhir berhenti; diuji di unit test. */
+    private val jedaHentikanMillis: Long = JEDA_HENTIKAN_DEFAULT_MS,
 ) : ViewModel() {
 
     private val kueriPencarian = MutableStateFlow("")
@@ -48,10 +57,25 @@ class DashboardViewModel(
     private val kesalahanMuat = MutableStateFlow<UiText?>(null)
     private val pesanAksi = MutableStateFlow<UiText?>(null)
 
-    /** Satu-satunya sumber "waktu sekarang": jam inject + detak berkala. */
-    private val sekarang: Flow<Long> = detak
+    /**
+     * Satu-satunya sumber "waktu sekarang": jam inject + detak berkala.
+     *
+     * Dibagi dengan [shareIn] supaya:
+     * 1. semua aliran memakai SATU timer (sebelumnya tiap aliran mengoleksi [detak] yang
+     *    dingin sendiri, sehingga ada dua loop `delay` berjalan bersamaan), dan
+     * 2. detak ikut berhenti saat tidak ada yang mengoleksi [uiState], misalnya saat
+     *    aplikasi di belakang, karena upstream `shareIn` dihentikan oleh `WhileSubscribed`.
+     *
+     * [jedaHentikanMillis] menahan timer/muat sebentar agar rotasi layar tidak memuat ulang.
+     */
+    private val sekarang: SharedFlow<Long> = detak
         .map { sumberWaktu.sekarang() }
         .onStart { emit(sumberWaktu.sekarang()) }
+        .shareIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(jedaHentikanMillis),
+            replay = 1,
+        )
 
     private val aliranAktif: Flow<List<PasienAktifUi>> = combine(
         pasienRepository.getPasienAktif(),
@@ -141,7 +165,7 @@ class DashboardViewModel(
         )
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MS),
+        started = SharingStarted.WhileSubscribed(jedaHentikanMillis),
         initialValue = DashboardUiState(),
     )
 
@@ -188,6 +212,6 @@ class DashboardViewModel(
 
     private companion object {
         /** Data tetap hidup sebentar saat rotasi layar agar tidak memuat ulang. */
-        const val STOP_TIMEOUT_MS = 5_000L
+        const val JEDA_HENTIKAN_DEFAULT_MS = 5_000L
     }
 }

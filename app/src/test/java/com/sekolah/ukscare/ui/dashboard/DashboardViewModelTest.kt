@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -63,13 +64,42 @@ class DashboardViewModelTest {
         db.close()
     }
 
-    private fun buatViewModel() = DashboardViewModel(
+    private fun buatViewModel(jedaHentikanMillis: Long = 5_000L) = DashboardViewModel(
         pasienRepository = pasienRepository,
         obatRepository = obatRepository,
         sumberWaktu = jam,
         zone = WaktuUji.ZONE,
         detak = detak,
+        jedaHentikanMillis = jedaHentikanMillis,
     )
+
+    @Test
+    fun `detak hanya dikoleksi sekali walau dipakai ringkasan dan daftar aktif`() = runBlocking {
+        val viewModel = buatViewModel()
+        assertEquals(0, detak.subscriptionCount.value)
+
+        val kolektor = launch { viewModel.uiState.collect {} }
+        detak.subscriptionCount.tunggu { it > 0 }
+
+        // Sebelum diperbaiki setiap aliran mengoleksi detak sendiri, sehingga ada dua timer.
+        assertEquals(1, detak.subscriptionCount.value)
+        kolektor.cancel()
+    }
+
+    @Test
+    fun `detak berhenti saat tidak ada lagi yang mengoleksi state`() = runBlocking {
+        // Jeda hentikan 0 ms agar penghentian detak dapat diuji tanpa menunggu 5 detik.
+        val viewModel = buatViewModel(jedaHentikanMillis = 0L)
+
+        val kolektor = launch { viewModel.uiState.collect {} }
+        detak.subscriptionCount.tunggu { it > 0 }
+
+        // Seperti aplikasi yang masuk ke belakang: berhenti mengoleksi state.
+        kolektor.cancel()
+
+        // Timer detak ikut berhenti karena stateIn/shareIn memakai WhileSubscribed.
+        assertEquals(0, detak.subscriptionCount.tunggu { it == 0 })
+    }
 
     @Test
     fun `ringkasan menghitung pasien dirawat kunjungan hari ini dan obat bermasalah`() = runBlocking {

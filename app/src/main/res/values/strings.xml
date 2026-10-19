@@ -76,4 +76,36 @@
     <string name="aksi_bagikan_whatsapp">Bagikan ke WhatsApp</string>
     <string name="aksi_selesai">Selesai</string>
     <string name="share_judul_surat_izin">Bagikan surat izin UKS</string>
+
+    <!-- Dashboard (AGENTS.md 6.1) -->
+    <string name="ringkasan_sedang_dirawat">Sedang Dirawat</string>
+    <string name="ringkasan_kunjungan_hari_ini">Kunjungan Hari Ini</string>
+    <string name="ringkasan_obat_bermasalah">Obat Bermasalah</string>
+    <string name="kelola_obat_badge">%1$d obat bermasalah</string>
+    <string name="tab_sedang_dirawat">Sedang Dirawat</string>
+    <string name="tab_riwayat">Riwayat</string>
+    <string name="aksi_pasien_baru">Pasien Baru</string>
+    <string name="cari_riwayat">Cari nama siswa</string>
+    <string name="aksi_bersihkan_pencarian">Bersihkan pencarian</string>
+
+    <string name="pasien_kelas">Kelas %1$s</string>
+    <string name="pasien_keluhan">Keluhan: %1$s</string>
+    <string name="pasien_waktu_masuk">Masuk: %1$s</string>
+    <string name="pasien_waktu_keluar">Keluar: %1$s</string>
+    <string name="pasien_durasi_istirahat">Istirahat: %1$s</string>
+    <string name="durasi_baru_mulai">Baru saja</string>
+    <string name="durasi_menit">%1$d menit</string>
+    <string name="durasi_jam_menit">%1$d jam %2$d menit</string>
+    <string name="aksi_bagikan_surat">Bagikan surat izin</string>
+
+    <string name="aksi_selesai_istirahat">Selesai Istirahat</string>
+    <string name="selesai_istirahat_judul">Selesaikan istirahat?</string>
+    <string name="selesai_istirahat_pesan">%1$s dianggap sudah kembali ke kelas dan pindah ke tab Riwayat.</string>
+
+    <string name="dashboard_aktif_kosong_judul">Belum ada pasien dirawat</string>
+    <string name="dashboard_aktif_kosong_pesan">Semua pasien sudah selesai istirahat. Tekan Pasien Baru bila ada siswa yang datang ke UKS.</string>
+    <string name="dashboard_riwayat_kosong_judul">Belum ada riwayat</string>
+    <string name="dashboard_riwayat_kosong_pesan">Kunjungan yang sudah selesai istirahat akan muncul di sini.</string>
+    <string name="dashboard_pencarian_kosong_judul">Nama tidak ditemukan</string>
+    <string name="dashboard_pencarian_kosong_pesan">Tidak ada riwayat yang cocok dengan &quot;%1$s&quot;. Coba kata kunci lain.</string>
 </resources>
