@@ -30,6 +30,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // java.time (ZoneId, Instant, LocalDate, ...) hanya ada sejak API 26;
+        // desugaring membuatnya tersedia di minSdk 24 (AGENTS.md 2 & 7.4).
+        isCoreLibraryDesugaringEnabled = true
     }
 
     buildFeatures {
@@ -66,6 +69,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     implementation(libs.kotlinx.coroutines.android)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)

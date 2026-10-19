@@ -75,8 +75,9 @@ private val TinggiMaksMenu = 320.dp
 
 /**
  * Layar form pasien baru (AGENTS.md 6.2).
- * ViewModel disediakan [AppViewModelProvider]; pemiliknya diatur pengalih layar M5b
- * dan nanti oleh NavGraph (satu instance per destination, lihat [PemilikSesiForm]).
+ * ViewModel disediakan [AppViewModelProvider]; NavGraph membatasinya pada
+ * NavBackStackEntry destination ini, sehingga setiap pembukaan form mendapat instance
+ * baru dan instance lama dibuang saat destination ditutup.
  */
 @Composable
 fun FormPasienScreen(
@@ -426,6 +427,9 @@ private fun SheetSimpanBerhasil(
     onSelesai: () -> Unit,
 ) {
     val konteks = LocalContext.current
+    // Judul diambil di sini (bukan lewat konteks) agar tidak melanggar lint
+    // LocalContextGetResourceValueCall dan tetap mengikuti bahasa perangkat.
+    val judulBagikan = stringResource(R.string.share_judul_surat_izin)
     ModalBottomSheet(
         // Menutup lembar juga menutup form supaya pengguna tidak tertinggal pada form
         // yang sudah tersimpan (satu form = satu pasien).
@@ -472,7 +476,7 @@ private fun SheetSimpanBerhasil(
                     WhatsAppShare.bagikan(
                         context = konteks,
                         pesan = draf,
-                        judul = konteks.getString(R.string.share_judul_surat_izin),
+                        judul = judulBagikan,
                     )
                 },
                 modifier = Modifier

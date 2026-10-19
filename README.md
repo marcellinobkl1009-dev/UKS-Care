@@ -5,13 +5,14 @@ An offline Android app for school health units (UKS) to log patient visits quick
 ## Features
 
 - **Fast patient entry:** name, class, gender, then tap complaint and action chips. No NISN needed.
-- **Permission slip generator:** creates an official message and shares it to the class teacher or duty teacher via WhatsApp.
-- **Medicine stock control:** stock drops by 1 automatically each time medicine is given. Red/yellow/green indicators flag critical stock (< 5) and near or past expiry.
-- **Patient status and history:** separate lists for patients currently resting and those who have returned to class, with an automatic exit time.
+- **Permission slip generator:** creates an official message and shares it to the class teacher or duty teacher via WhatsApp (with a chooser fallback if WhatsApp is not installed).
+- **Medicine stock control:** add, edit, restock and delete medicines; stock drops by 1 automatically each time medicine is given. Red/yellow/green indicators flag critical stock (< 5) and near or past expiry; expired or empty medicines cannot be dispensed.
+- **Dashboard:** summary counts, plus **Sedang Dirawat** (active) and **Riwayat** (finished) tabs with name search in Riwayat.
+- **Patient status and history:** "Selesai Istirahat" records the exit time and moves the patient to Riwayat automatically.
 
 ## Tech Stack
 
-Kotlin, Jetpack Compose (Material 3), Room (SQLite), MVVM, Navigation Compose, Coroutines and Flow. Fully offline, no login.
+Kotlin, Jetpack Compose (Material 3), Room (SQLite), MVVM (StateFlow + Repository), Navigation Compose, Coroutines and Flow. Fully offline, no login. Core library desugaring brings `java.time` to minSdk 24.
 
 ## Requirements
 
@@ -29,10 +30,13 @@ Kotlin, Jetpack Compose (Material 3), Room (SQLite), MVVM, Navigation Compose, C
 ./gradlew installDebug
 ```
 
-Run the unit tests:
+Build, test, lint and a release-style check:
 
 ```bash
-./gradlew testDebugUnitTest
+./gradlew assembleDebug        # debug APK
+./gradlew testDebugUnitTest    # 74 unit tests
+./gradlew lintDebug            # Android Lint
+./gradlew assembleRelease      # unsigned release APK (minify off)
 ```
 
 ## Customize
@@ -49,6 +53,10 @@ Run the unit tests:
 | Already expired | Red | Kadaluwarsa |
 | Expires within 30 days | Yellow | Hampir Kadaluwarsa |
 | Otherwise | Green | Aman |
+
+## Tests
+
+74 JUnit unit tests, all runnable without a device: medicine status boundaries (stock 4 vs 5, expiry today and in 30 days), `PesanGenerator` output, `DateUtils`, the Room data layer (Robolectric in-memory database), and the three ViewModels.
 
 ## Project Docs
 

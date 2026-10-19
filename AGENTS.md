@@ -27,6 +27,8 @@ UKS-Care is a standalone Android app for logging patient visits at a school heal
 
 > **Note on `compileSdk`:** it is 36 (not 34) because the AndroidX artifacts we depend on publish `minCompileSdk=36` in their AAR metadata, which AGP enforces at build time. `minSdk 24` and `targetSdk 34` are unchanged.
 
+> **Note on core library desugaring:** date handling uses `java.time`, which only exists from API 26. To keep `minSdk 24`, the build enables core library desugaring (`isCoreLibraryDesugaringEnabled = true`) with `com.android.tools:desugar_jdk_libs` (M6). This is a build/runtime shim, not a feature dependency; without it the app crashes on API 24/25 and lint fails with `NewApi` errors.
+
 Use a version catalog (`gradle/libs.versions.toml`). Pin stable library versions compatible with each other.
 
 ## 3. Commands

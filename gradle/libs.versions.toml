@@ -15,6 +15,9 @@ room = "2.8.5"
 # Kotlin ecosystem
 coroutines = "1.11.0"
 
+# Runtime shim for java.time on minSdk 24/25 (core library desugaring)
+desugarJdkLibs = "2.1.5"
+
 # Testing
 junit = "4.13.2"
 robolectric = "4.17"
@@ -43,6 +46,9 @@ androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+# Core library desugaring (java.time on API 24/25)
+desugar-jdk-libs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "desugarJdkLibs" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }

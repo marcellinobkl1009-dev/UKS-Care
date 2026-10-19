@@ -24,6 +24,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,7 +51,7 @@ fun ObatFormDialog(
 ) {
     var namaObat by remember { mutableStateOf(awal?.namaObat.orEmpty()) }
     var stokTeks by remember { mutableStateOf((awal?.stok ?: 0).toString()) }
-    var kadaluwarsa by remember { mutableStateOf(awal?.expiredDate ?: kadaluwarsaBawaan(zona)) }
+    var kadaluwarsa by remember { mutableLongStateOf(awal?.expiredDate ?: kadaluwarsaBawaan(zona)) }
     var tampilkanPemilihTanggal by remember { mutableStateOf(false) }
 
     val stok = stokTeks.toIntOrNull()
