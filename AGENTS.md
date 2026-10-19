@@ -188,6 +188,8 @@ Write JUnit unit tests for:
 
 Keep date logic injectable (pass the current time as a parameter) so tests are deterministic.
 
+Test-only dependencies (unit tests only, never shipped): Robolectric, `androidx.test:core`, and `androidx.room:room-testing`, used for in-memory Room tests of the data layer.
+
 ## 10. Out of Scope (do not build)
 
 Login or multi-user, cloud sync, NISN, push notifications, backend server, student/parent-facing app.

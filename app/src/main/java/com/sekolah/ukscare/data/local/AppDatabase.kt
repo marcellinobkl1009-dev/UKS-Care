@@ -52,8 +52,9 @@ abstract class AppDatabase : RoomDatabase() {
     /**
      * Callback pembuatan database. Sengaja memakai SQL mentah pada [SupportSQLiteDatabase]
      * (bukan instance database) agar tidak terjadi deadlock/rekursi.
+     * `internal` supaya pengujian unit dapat memakai callback yang sama pada database in-memory.
      */
-    private class SeedCallback(private val clock: () -> Long) : RoomDatabase.Callback() {
+    internal class SeedCallback(private val clock: () -> Long) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             val kadaluwarsa = clock() + 365 * SATU_HARI_MILLIS
