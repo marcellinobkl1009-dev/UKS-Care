@@ -1,0 +1,4 @@
+# Keep the committed wrapper scripts usable on every OS: gradlew must stay LF.
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf

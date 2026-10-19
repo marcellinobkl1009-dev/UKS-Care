@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Warna dasar. Palet lengkap Compose dibuat pada milestone M5. -->
+    <color name="uks_launcher_background">#00695C</color>
+    <color name="uks_window_background">#FBFDF9</color>
+</resources>
