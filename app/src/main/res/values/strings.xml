@@ -56,4 +56,24 @@
 
     <string name="hapus_obat_judul">Hapus obat ini?</string>
     <string name="hapus_obat_pesan">%1$s akan dihapus dari daftar obat UKS. Tindakan ini tidak dapat dibatalkan.</string>
+
+    <!-- Form Pasien (AGENTS.md 6.2) -->
+    <string name="form_pasien_judul">Pasien Baru</string>
+    <string name="field_nama_siswa">Nama siswa</string>
+    <string name="field_kelas">Kelas</string>
+    <string name="field_jenis_kelamin">Jenis kelamin</string>
+    <string name="field_keluhan">Keluhan</string>
+    <string name="field_tindakan">Tindakan</string>
+    <string name="field_pilih_obat">Pilih obat</string>
+    <string name="form_obat_stok">%1$s (stok: %2$d)</string>
+    <string name="form_obat_tidak_ada">Tidak ada obat yang dapat diberikan. Periksa stok di Kelola Obat.</string>
+    <string name="form_sedang_menyimpan">Menyimpan…</string>
+
+    <!-- Lembar konfirmasi setelah pasien tersimpan (AGENTS.md 6.2, 6.3) -->
+    <string name="form_simpan_berhasil_judul">Pasien berhasil disimpan</string>
+    <string name="form_simpan_berhasil_pesan">Surat izin istirahat siap dibagikan ke wali kelas.</string>
+    <string name="form_draf_surat">Draf surat izin</string>
+    <string name="aksi_bagikan_whatsapp">Bagikan ke WhatsApp</string>
+    <string name="aksi_selesai">Selesai</string>
+    <string name="share_judul_surat_izin">Bagikan surat izin UKS</string>
 </resources>

@@ -30,6 +30,7 @@ data class FormPasienUiState(
     /** Id obat terpilih; hanya dipakai bila [membutuhkanObat] bernilai true. */
     val idObatTerpilih: Int? = null,
     val daftarKelas: List<String> = Constants.DAFTAR_KELAS,
+    val daftarJenisKelamin: List<String> = Constants.PILIHAN_JENIS_KELAMIN,
     val daftarKeluhan: List<String> = Constants.PILIHAN_KELUHAN,
     val daftarTindakan: List<String> = Constants.PILIHAN_TINDAKAN,
     /** Hanya obat yang stoknya ada dan belum kadaluwarsa. */

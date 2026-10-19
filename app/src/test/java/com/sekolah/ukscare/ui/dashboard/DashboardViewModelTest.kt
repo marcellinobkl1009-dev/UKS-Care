@@ -196,7 +196,9 @@ class DashboardViewModelTest {
             viewModel.uiState.tunggu { it.kesalahan != null }.kesalahan,
         )
         viewModel.bersihkanKesalahan()
-        assertNull(viewModel.uiState.value.kesalahan)
+        // stateIn menyimpan nilai terakhir, jadi tunggu emisi berikutnya agar tidak
+        // membaca nilai cache (bisa balapan dengan coroutine pembagi state).
+        assertNull(viewModel.uiState.tunggu { it.kesalahan == null }.kesalahan)
     }
 
     private suspend fun simpanPasien(nama: String, waktuMasuk: Long): Int {

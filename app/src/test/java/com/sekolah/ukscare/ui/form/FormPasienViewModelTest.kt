@@ -264,6 +264,25 @@ class FormPasienViewModelTest {
         assertEquals(1, jumlahPasien())
     }
 
+    @Test
+    fun `instance baru membuat form kosong dan dapat menyimpan pasien berikutnya`() = runBlocking {
+        val pertama = buatViewModel()
+        isiFormValid(pertama)
+        pertama.simpan()
+        pertama.uiState.tunggu { it.drafPesan != null }
+
+        // Pembukaan form berikutnya memakai ViewModel baru (satu instance = satu insert).
+        val kedua = buatViewModel()
+        assertEquals("", kedua.uiState.value.namaSiswa)
+        assertTrue(kedua.uiState.value.tindakan.isEmpty())
+
+        isiFormValid(kedua)
+        kedua.simpan()
+        kedua.uiState.tunggu { it.drafPesan != null }
+
+        assertEquals(2, jumlahPasien())
+    }
+
     private fun isiFormValid(viewModel: FormPasienViewModel) {
         viewModel.ubahNama("Budi Santoso")
         viewModel.pilihKelas("VII-A")
