@@ -2,4 +2,25 @@
 <resources>
     <string name="app_name">UKS-Care</string>
     <string name="placeholder_screen">Aplikasi UKS-Care siap dibangun.</string>
+
+    <!-- Pesan kesalahan umum (dipakai ViewModel lewat UiText) -->
+    <string name="pesan_gagal_memuat_data">Gagal memuat data. Coba buka kembali halaman ini.</string>
+    <string name="pesan_gagal_memuat_obat">Gagal memuat daftar obat.</string>
+    <string name="pesan_gagal_menyimpan_pasien">Gagal menyimpan data pasien.</string>
+    <string name="pesan_gagal_selesaikan_istirahat">Gagal menyelesaikan istirahat pasien.</string>
+    <string name="pesan_gagal_menyimpan_obat">Gagal menyimpan perubahan obat.</string>
+    <string name="pesan_pasien_tidak_ditemukan">Data pasien tidak ditemukan.</string>
+    <string name="pesan_obat_tidak_ditemukan">Obat tidak ditemukan.</string>
+    <string name="pesan_stok_obat_habis">Stok obat sudah habis. Pilih obat lain.</string>
+    <string name="pesan_obat_kadaluwarsa">Obat sudah kadaluwarsa dan tidak boleh diberikan.</string>
+    <string name="pesan_nama_obat_wajib">Nama obat wajib diisi.</string>
+    <string name="pesan_stok_tidak_valid">Jumlah stok tidak valid.</string>
+
+    <!-- Validasi form pasien (AGENTS.md 6.2) -->
+    <string name="validasi_nama_wajib">Nama siswa wajib diisi.</string>
+    <string name="validasi_kelas_wajib">Kelas wajib dipilih.</string>
+    <string name="validasi_jenis_kelamin_wajib">Jenis kelamin wajib dipilih.</string>
+    <string name="validasi_keluhan_wajib">Pilih minimal satu keluhan.</string>
+    <string name="validasi_tindakan_wajib">Pilih minimal satu tindakan.</string>
+    <string name="validasi_obat_wajib">Pilih obat yang diberikan.</string>
 </resources>
