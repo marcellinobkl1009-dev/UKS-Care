@@ -51,7 +51,7 @@ Open the project folder in Android Studio, wait for Gradle sync, select a device
 
 ## Customizing the app
 
-- **Class list:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `DAFTAR_KELAS` (default VII-A to IX-E).
+- **Class list:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `DAFTAR_KELAS`. The default is a vocational high school (SMK) list of 42 classes: levels X/XI/XII with major codes AKL, MPLB, ULP, PM, TJKT, DKV, PPLG, and AM (for example `X AKL 1` to `XII AM`). Edit this file if your school's classes differ.
 - **Complaint and action options:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `PILIHAN_KELUHAN` and `PILIHAN_TINDAKAN`.
 - **UI text:** `app/src/main/res/values/strings.xml`.
 - **Seed medicines:** `app/src/main/java/com/sekolah/ukscare/data/local/AppDatabase.kt` → `SeedCallback` (5 medicines, initial stock 10, expiry 1 year after the database is created).

@@ -235,7 +235,7 @@ class DashboardViewModelTest {
         val hasil = pasienRepository.simpanPasien(
             masukan = MasukanPasien(
                 namaSiswa = nama,
-                kelas = "VII-A",
+                kelas = "X AKL 1",
                 jenisKelamin = Constants.JENIS_KELAMIN_LAKI_LAKI,
                 keluhan = "Pusing",
                 tindakan = "Istirahat",

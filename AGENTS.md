@@ -112,7 +112,7 @@ Seed data on first creation (via `RoomDatabase.Callback`): Paracetamol, Antasida
 
 ### 6.2 Patient Form
 - Nama Siswa: text field (required).
-- Kelas: `ExposedDropdownMenu`. The class list lives in `Constants` so it is easy to replace (default VII-A..IX-E, junior high).
+- Kelas: `ExposedDropdownMenu`. The class list lives in `util/Constants.kt` (`DAFTAR_KELAS`) so it is easy to replace. Default is a vocational high school (SMK) list of 42 classes: levels X, XI, XII with major codes AKL, MPLB, ULP, PM, TJKT, DKV, PPLG, AM (e.g. `X AKL 1` ... `XII AM`). Stored class values are plain text, so old records are never re-validated against the list.
 - Jenis Kelamin: SegmentedButton or RadioButton.
 - Keluhan: multi-select FilterChips: Pusing, Demam, Maag, Luka, Mual, Sakit Kepala, Lainnya.
 - Tindakan: multi-select FilterChips: Istirahat, Diberi Obat, Kompres, Dibalut/P3K.

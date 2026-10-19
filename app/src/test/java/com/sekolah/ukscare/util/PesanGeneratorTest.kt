@@ -12,7 +12,7 @@ class PesanGeneratorTest {
     fun `pesan dengan obat mengikuti template AGENTS md`() {
         val pesan = PesanGenerator.buatPesan(
             nama = "Andi Saputra",
-            kelas = "VII-A",
+            kelas = "X AKL 1",
             keluhan = "Pusing, Demam",
             tindakan = "Istirahat, Diberi Obat",
             obat = "Paracetamol",
@@ -24,11 +24,11 @@ class PesanGeneratorTest {
             *SURAT IZIN ISTIRAHAT - UKS*
 
             Kepada Yth. Wali Kelas / Guru Piket
-            Kelas: VII-A
+            Kelas: X AKL 1
 
             Dengan hormat, siswa berikut sedang berada di UKS:
             Nama: Andi Saputra
-            Kelas: VII-A
+            Kelas: X AKL 1
             Keluhan: Pusing, Demam
             Tindakan: Istirahat, Diberi Obat
             Obat diberikan: Paracetamol
@@ -46,7 +46,7 @@ class PesanGeneratorTest {
     fun `pesan tanpa obat memakai tanda hubung`() {
         val pesan = PesanGenerator.buatPesan(
             nama = "Budi",
-            kelas = "IX-E",
+            kelas = "XII AM",
             keluhan = "Luka",
             tindakan = "Kompres",
             obat = null,
@@ -58,11 +58,11 @@ class PesanGeneratorTest {
             *SURAT IZIN ISTIRAHAT - UKS*
 
             Kepada Yth. Wali Kelas / Guru Piket
-            Kelas: IX-E
+            Kelas: XII AM
 
             Dengan hormat, siswa berikut sedang berada di UKS:
             Nama: Budi
-            Kelas: IX-E
+            Kelas: XII AM
             Keluhan: Luka
             Tindakan: Kompres
             Obat diberikan: -
@@ -80,7 +80,7 @@ class PesanGeneratorTest {
     fun `nama obat kosong juga memakai tanda hubung`() {
         val pesan = PesanGenerator.buatPesan(
             nama = "Citra",
-            kelas = "VIII-B",
+            kelas = "XI TJKT 1",
             keluhan = "Mual",
             tindakan = "Istirahat",
             obat = "   ",
@@ -94,7 +94,7 @@ class PesanGeneratorTest {
         val pasien = Pasien(
             id = 7,
             namaSiswa = "Dewi",
-            kelas = "VII-C",
+            kelas = "XII PPLG",
             jenisKelamin = Constants.JENIS_KELAMIN_PEREMPUAN,
             keluhan = "Sakit Kepala",
             tindakan = "Istirahat, Diberi Obat",
@@ -107,7 +107,7 @@ class PesanGeneratorTest {
         val pesan = PesanGenerator.buatPesan(pasien, waktuMasuk)
 
         assertEquals(true, pesan.contains("Nama: Dewi"))
-        assertEquals(true, pesan.contains("Kelas: VII-C"))
+        assertEquals(true, pesan.contains("Kelas: XII PPLG"))
         assertEquals(true, pesan.contains("Obat diberikan: Antasida"))
     }
 }

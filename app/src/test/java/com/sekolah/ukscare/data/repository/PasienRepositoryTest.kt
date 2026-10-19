@@ -157,7 +157,7 @@ class PasienRepositoryTest {
 
     private fun masukan(nama: String = "Andi Saputra", obat: Obat? = null) = MasukanPasien(
         namaSiswa = nama,
-        kelas = "VII-A",
+        kelas = "X AKL 1",
         jenisKelamin = Constants.JENIS_KELAMIN_LAKI_LAKI,
         keluhan = Constants.gabungPilihan(listOf("Pusing", "Demam")),
         tindakan = Constants.gabungPilihan(listOf("Istirahat", Constants.DIBERI_OBAT)),

@@ -14,11 +14,21 @@ object Constants {
         JENIS_KELAMIN_PEREMPUAN,
     )
 
-    /** Default SMP: VII-A sampai IX-E. */
+    /**
+     * Daftar kelas default SMK (Sekolah Menengah Kejuruan): tingkat X, XI, dan XII
+     * dengan kode jurusan AKL, MPLB, ULP, PM, TJKT, DKV, PPLG, dan AM.
+     * Data pasien lama tetap berupa teks bebas, jadi mengganti daftar ini aman.
+     */
     val DAFTAR_KELAS: List<String> = listOf(
-        "VII-A", "VII-B", "VII-C", "VII-D", "VII-E",
-        "VIII-A", "VIII-B", "VIII-C", "VIII-D", "VIII-E",
-        "IX-A", "IX-B", "IX-C", "IX-D", "IX-E",
+        "X AKL 1", "X AKL 2", "X MPLB 1", "X MPLB 2", "X ULP 1", "X ULP 2",
+        "X PM 1", "X PM 2", "X TJKT 1", "X TJKT 2", "X DKV 1", "X DKV 2",
+        "X PPLG", "X AM",
+        "XI AKL 1", "XI AKL 2", "XI MPLB 1", "XI MPLB 2", "XI ULP 1", "XI ULP 2",
+        "XI PM 1", "XI PM 2", "XI TJKT 1", "XI TJKT 2", "XI DKV 1", "XI DKV 2",
+        "XI PPLG", "XI AM",
+        "XII AKL 1", "XII AKL 2", "XII MPLB 1", "XII MPLB 2", "XII ULP 1", "XII ULP 2",
+        "XII PM 1", "XII PM 2", "XII TJKT 1", "XII TJKT 2", "XII DKV 1", "XII DKV 2",
+        "XII PPLG", "XII AM",
     )
 
     val PILIHAN_KELUHAN: List<String> = listOf(

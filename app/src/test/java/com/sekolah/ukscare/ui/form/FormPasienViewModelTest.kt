@@ -161,7 +161,7 @@ class FormPasienViewModelTest {
 
         val pasien = pasienRepository.getPasienAktif().first().single()
         assertEquals("Budi Santoso", pasien.namaSiswa)
-        assertEquals("VII-A", pasien.kelas)
+        assertEquals("X AKL 1", pasien.kelas)
         assertEquals(Constants.JENIS_KELAMIN_LAKI_LAKI, pasien.jenisKelamin)
         assertEquals("Pusing", pasien.keluhan)
         assertEquals("Istirahat, Diberi Obat", pasien.tindakan)
@@ -173,7 +173,7 @@ class FormPasienViewModelTest {
         val draf = state.drafPesan!!
         assertTrue(draf.contains("Budi Santoso"))
         assertTrue(draf.contains("Paracetamol"))
-        assertTrue(draf.contains("VII-A"))
+        assertTrue(draf.contains("X AKL 1"))
     }
 
     @Test
@@ -285,7 +285,7 @@ class FormPasienViewModelTest {
 
     private fun isiFormValid(viewModel: FormPasienViewModel) {
         viewModel.ubahNama("Budi Santoso")
-        viewModel.pilihKelas("VII-A")
+        viewModel.pilihKelas("X AKL 1")
         viewModel.pilihJenisKelamin(Constants.JENIS_KELAMIN_LAKI_LAKI)
         viewModel.alihKeluhan("Pusing")
         viewModel.alihTindakan("Istirahat")

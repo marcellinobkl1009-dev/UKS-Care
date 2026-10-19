@@ -51,7 +51,7 @@ Buka folder proyek di Android Studio, tunggu Gradle sync, pilih perangkat, lalu 
 
 ## Menyesuaikan aplikasi
 
-- **Daftar kelas:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `DAFTAR_KELAS` (bawaan VII-A sampai IX-E).
+- **Daftar kelas:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `DAFTAR_KELAS`. Bawaan untuk SMK: 42 kelas, tingkat X/XI/XII dengan kode jurusan AKL, MPLB, ULP, PM, TJKT, DKV, PPLG, dan AM (contoh `X AKL 1` sampai `XII AM`). Ubah di file ini bila struktur kelas sekolah berbeda.
 - **Pilihan keluhan dan tindakan:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `PILIHAN_KELUHAN` dan `PILIHAN_TINDAKAN`.
 - **Teks antarmuka:** `app/src/main/res/values/strings.xml`.
 - **Obat bawaan (data awal):** `app/src/main/java/com/sekolah/ukscare/data/local/AppDatabase.kt` → `SeedCallback` (5 obat, stok awal 10, kadaluwarsa 1 tahun setelah database dibuat).
