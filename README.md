@@ -1,102 +1,70 @@
-**Bahasa Indonesia** | [English](README.en.md)
-
 # UKS-Care
 
-Aplikasi Android offline untuk Unit Kesehatan Sekolah (UKS): mencatat kunjungan pasien dengan cepat dan mengontrol stok obat.
+An offline Android app for school health units (UKS) to log patient visits quickly and keep medicine stock under control. This is the **Staff/Admin version**, intended for PMR members on duty or the UKS supervisor.
 
-## Fitur utama
+## Features
 
-- **Pencatatan pasien cepat:** isi nama, kelas, dan jenis kelamin, lalu pilih keluhan dan tindakan lewat chip. Tanpa NISN.
-- **Surat izin & bagikan ke WhatsApp:** aplikasi menyusun surat izin istirahat dan membagikannya ke wali kelas atau guru piket lewat WhatsApp (ada pilihan aplikasi lain bila WhatsApp tidak terpasang).
-- **Manajemen stok obat:** tambah, ubah, tambah stok, dan hapus obat; stok berkurang 1 otomatis setiap obat diberikan, dengan indikator warna (merah/kuning/hijau).
-- **Status pasien & riwayat:** tab **Sedang Dirawat** dan **Riwayat**, lengkap dengan pencarian nama pada riwayat.
+- **Fast patient entry:** name, class, gender, then tap complaint and action chips. No NISN needed.
+- **Permission slip generator:** creates an official message and shares it to the class teacher or duty teacher via WhatsApp (with a chooser fallback if WhatsApp is not installed).
+- **Medicine stock control:** add, edit, restock and delete medicines; stock drops by 1 automatically each time medicine is given. Red/yellow/green indicators flag critical stock (< 5) and near or past expiry; expired or empty medicines cannot be dispensed.
+- **Dashboard:** summary counts, plus **Sedang Dirawat** (active) and **Riwayat** (finished) tabs with name search in Riwayat.
+- **Patient status and history:** "Selesai Istirahat" records the exit time and moves the patient to Riwayat automatically.
 
-## Cara kerja singkat
+## Tech Stack
 
-1. Di Dashboard, tekan **+ Pasien Baru**.
-2. Isi data pasien dan pilih keluhan serta tindakan. Bila memilih **Diberi Obat**, pilih obat dari daftar (hanya obat yang berstok dan belum kadaluwarsa).
-3. Tekan **Simpan** — pasien tersimpan berstatus aktif dan stok obat berkurang 1 dalam satu transaksi.
-4. Lembar konfirmasi muncul; kirim surat izin lewat **Share ke WhatsApp**, lalu tekan **Selesai** untuk kembali ke Dashboard.
-5. Pasien tampil di tab **Sedang Dirawat**. Setelah pasien kembali ke kelas, tekan **Selesai Istirahat** dan setujui konfirmasi — waktu keluar tercatat dan pasien pindah ke **Riwayat**.
+Kotlin, Jetpack Compose (Material 3), Room (SQLite), MVVM (StateFlow + Repository), Navigation Compose, Coroutines and Flow. Fully offline, no login. Core library desugaring brings `java.time` to minSdk 24.
 
-## Aturan status obat
+## Requirements
 
-| Kondisi | Warna | Label |
-|---|---|---|
-| stok < 5 | Merah | Stok Kritis |
-| sudah lewat tanggal kadaluwarsa | Merah | Kadaluwarsa |
-| kadaluwarsa dalam 30 hari | Kuning | Hampir Kadaluwarsa |
-| selain itu | Hijau | Aman |
+- Android Studio (latest stable)
+- JDK 17
+- Android device or emulator, API 24 or higher
 
-Obat yang kadaluwarsa atau berstok 0 tidak bisa dipilih saat memberi obat. Di **Kelola Obat**, obat bermasalah ditampilkan lebih dulu.
+## Run the Project
 
-## Teknologi
-
-Kotlin, Jetpack Compose (Material 3), Room (SQLite) dengan KSP, arsitektur MVVM (ViewModel + StateFlow + Repository), Navigation Compose, serta Coroutines dan Flow. Aplikasi berjalan 100% offline, tanpa login.
-
-Versi yang dipatok di `gradle/libs.versions.toml`: Compose BOM 2026.06.01, Room 2.8.5, Navigation Compose 2.9.8, AGP 9.4.1, Kotlin 2.3.20.
-
-## Kebutuhan dan cara menjalankan
-
-- Android Studio (versi stable) dan **JDK 17**.
-- Perangkat atau emulator Android dengan **minSdk 24**.
-- `compileSdk` diset **36** (bukan 34) karena artefak AndroidX yang dipakai mensyaratkan `minCompileSdk 36`; `targetSdk` tetap 34.
+1. Open the project folder in Android Studio and let Gradle sync.
+2. Select a device or emulator.
+3. Press **Run**, or from the terminal:
 
 ```bash
-./gradlew installDebug        # pasang ke perangkat/emulator
-./gradlew testDebugUnitTest   # jalankan 74 unit test
+./gradlew installDebug
 ```
 
-Buka folder proyek di Android Studio, tunggu Gradle sync, pilih perangkat, lalu tekan **Run**.
+Build, test, lint and a release-style check:
 
-## Menyesuaikan aplikasi
-
-- **Daftar kelas:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `DAFTAR_KELAS` (bawaan VII-A sampai IX-E).
-- **Pilihan keluhan dan tindakan:** `app/src/main/java/com/sekolah/ukscare/util/Constants.kt` → `PILIHAN_KELUHAN` dan `PILIHAN_TINDAKAN`.
-- **Teks antarmuka:** `app/src/main/res/values/strings.xml`.
-- **Obat bawaan (data awal):** `app/src/main/java/com/sekolah/ukscare/data/local/AppDatabase.kt` → `SeedCallback` (5 obat, stok awal 10, kadaluwarsa 1 tahun setelah database dibuat).
-
-## Data dan pencadangan
-
-- Semua data tersimpan **hanya di perangkat**, pada database Room `ukscare.db`. Aplikasi tidak menyediakan fitur pencadangan otomatis.
-- Data **hilang bila perangkat di-reset** atau aplikasi dihapus.
-- Sebelum dipakai, ganti obat contoh dengan stok dan tanggal kadaluwarsa asli dari UKS.
-- Catatan (belum diverifikasi): manifes menetapkan `android:allowBackup="true"`, sehingga Android dapat ikut mencadangkan data ke akun Google bila pencadangan sistem aktif. Jangan mengandalkan ini sebagai cadangan.
-
-## Struktur proyek
-
-```
-com.sekolah.ukscare/
-├── data/
-│   ├── local/        AppDatabase, PasienDao, ObatDao
-│   ├── model/        Pasien, Obat
-│   └── repository/   PasienRepository, ObatRepository
-├── ui/
-│   ├── dashboard/    DashboardScreen, DashboardViewModel
-│   ├── form/         FormPasienScreen, FormPasienViewModel
-│   ├── obat/         KelolaObatScreen, ObatViewModel
-│   ├── components/   PasienCard, ObatCard, StatusBadge, ...
-│   ├── navigation/   NavGraph
-│   └── theme/
-├── util/             Constants, DateUtils, ObatStatus, PesanGenerator, WhatsAppShare
-├── MainActivity.kt
-└── UksCareApp.kt     Application class: membuat database dan repository
+```bash
+./gradlew assembleDebug        # debug APK
+./gradlew testDebugUnitTest    # 74 unit tests
+./gradlew lintDebug            # Android Lint
+./gradlew assembleRelease      # unsigned release APK (minify off)
 ```
 
-## Pengujian
+## Customize
 
-74 unit test, semuanya jalan tanpa perangkat, dijalankan dengan `./gradlew testDebugUnitTest`. Cakupan:
+- **Class list:** edit the list in `util/Constants.kt` (default VII-A to IX-E, junior high).
+- **Complaint and action options:** also in `util/Constants.kt`.
+- **UI text:** `res/values/strings.xml` (Indonesian).
 
-- Aturan status obat, termasuk batas stok 4 vs 5 serta kadaluwarsa hari ini dan dalam 30 hari.
-- Isi surat izin (`PesanGenerator`) dan Intent WhatsApp.
-- Format tanggal (`DateUtils`).
-- Transaksi penyimpanan pasien sekaligus pengurangan stok obat (Room in-memory).
-- ViewModel Dashboard, Form, dan Obat.
+## Medicine Status Rules
 
-## Di luar cakupan
+| Condition | Color | Label |
+|---|---|---|
+| Stock below 5 | Red | Stok Kritis |
+| Already expired | Red | Kadaluwarsa |
+| Expires within 30 days | Yellow | Hampir Kadaluwarsa |
+| Otherwise | Green | Aman |
 
-Login atau multi-user, sinkronisasi cloud, NISN, notifikasi push, server backend, serta aplikasi untuk siswa atau orang tua.
+## Tests
 
-## Dokumentasi lain
+74 JUnit unit tests, all runnable without a device: medicine status boundaries (stock 4 vs 5, expiry today and in 30 days), `PesanGenerator` output, `DateUtils`, the Room data layer (Robolectric in-memory database), and the three ViewModels.
 
-- [`AGENTS.md`](AGENTS.md) — spesifikasi teknis lengkap dan aturan kerja untuk AI coding agent.
+## Project Docs
+
+- [`AGENTS.md`](AGENTS.md): full technical spec and rules for AI coding agents.
+
+## Out of Scope
+
+Login or multi-user, cloud sync, push notifications, backend server, and student or parent-facing apps.
+=======
+# UKS-Care
+
