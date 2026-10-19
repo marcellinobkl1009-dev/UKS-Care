@@ -61,6 +61,38 @@ class DateUtilsTest {
         )
     }
 
+    @Test
+    fun `format tanggal tanpa jam dipakai untuk kadaluwarsa obat`() {
+        assertEquals(
+            "Senin, 19 Okt 2026",
+            DateUtils.formatTanggal(jakarta(2026, 10, 19, 9, 30), jakarta),
+        )
+    }
+
+    @Test
+    fun `awal hari lokal diubah menjadi tengah malam UTC untuk DatePicker`() {
+        val lokal = jakarta(2026, 10, 19, 0, 0)
+        assertEquals(
+            LocalDate.of(2026, 10, 19).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+            DateUtils.dariLokalKeDatePicker(lokal, jakarta),
+        )
+        // Tanggal tetap sama walau tersimpan sebagai awal hari lokal di zona barat:
+        // awal hari 19 Okt di New York tetap menjadi UTC 19 Okt 00.00 (bukan 18 Okt).
+        val newYork = ZoneId.of("America/New_York")
+        val awalHariNewYork = ZonedDateTime.of(2026, 10, 19, 0, 0, 0, 0, newYork).toInstant().toEpochMilli()
+        assertEquals(
+            LocalDate.of(2026, 10, 19).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
+            DateUtils.dariLokalKeDatePicker(awalHariNewYork, newYork),
+        )
+    }
+
+    @Test
+    fun `konversi DatePicker bolak balik mengembalikan hari yang sama`() {
+        val lokal = jakarta(2027, 3, 1, 0, 0)
+        val kePicker = DateUtils.dariLokalKeDatePicker(lokal, jakarta)
+        assertEquals(lokal, DateUtils.dariDatePickerKeLokal(kePicker, jakarta))
+    }
+
     private fun jakarta(tahun: Int, bulan: Int, hari: Int, jam: Int, menit: Int): Long =
         ZonedDateTime.of(tahun, bulan, hari, jam, menit, 0, 0, jakarta).toInstant().toEpochMilli()
 }

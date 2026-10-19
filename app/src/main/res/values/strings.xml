@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">UKS-Care</string>
-    <string name="placeholder_screen">Aplikasi UKS-Care siap dibangun.</string>
 
     <!-- Pesan kesalahan umum (dipakai ViewModel lewat UiText) -->
     <string name="pesan_gagal_memuat_data">Gagal memuat data. Coba buka kembali halaman ini.</string>
@@ -23,4 +22,38 @@
     <string name="validasi_keluhan_wajib">Pilih minimal satu keluhan.</string>
     <string name="validasi_tindakan_wajib">Pilih minimal satu tindakan.</string>
     <string name="validasi_obat_wajib">Pilih obat yang diberikan.</string>
+
+    <!-- Aksi umum -->
+    <string name="aksi_kembali">Kembali</string>
+    <string name="aksi_batal">Batal</string>
+    <string name="aksi_simpan">Simpan</string>
+    <string name="aksi_pilih">Pilih</string>
+    <string name="aksi_hapus">Hapus</string>
+
+    <!-- Kelola Obat (AGENTS.md 6.4) -->
+    <string name="kelola_obat">Kelola Obat</string>
+    <string name="kelola_obat_kosong_judul">Belum ada obat</string>
+    <string name="kelola_obat_kosong_pesan">Tambahkan obat agar stok UKS dapat dipantau.</string>
+    <string name="aksi_tambah_obat">Tambah obat</string>
+    <string name="aksi_edit_obat">Ubah obat</string>
+    <string name="aksi_hapus_obat">Hapus obat</string>
+    <string name="aksi_tambah_stok">Tambah satu stok</string>
+    <string name="aksi_kurangi_stok">Kurangi satu stok</string>
+
+    <string name="status_aman">Aman</string>
+    <string name="status_stok_kritis">Stok Kritis</string>
+    <string name="status_hampir_kadaluwarsa">Hampir Kadaluwarsa</string>
+    <string name="status_kadaluwarsa">Kadaluwarsa</string>
+
+    <string name="obat_stok_label">Stok</string>
+    <string name="obat_kadaluwarsa_nilai">Kadaluwarsa: %1$s</string>
+
+    <string name="dialog_obat_tambah_judul">Tambah Obat</string>
+    <string name="dialog_obat_ubah_judul">Ubah Obat</string>
+    <string name="field_nama_obat">Nama obat</string>
+    <string name="field_stok">Stok</string>
+    <string name="field_kadaluwarsa">Tanggal kadaluwarsa</string>
+
+    <string name="hapus_obat_judul">Hapus obat ini?</string>
+    <string name="hapus_obat_pesan">%1$s akan dihapus dari daftar obat UKS. Tindakan ini tidak dapat dibatalkan.</string>
 </resources>

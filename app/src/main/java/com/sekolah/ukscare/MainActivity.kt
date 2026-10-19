@@ -4,22 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import com.sekolah.ukscare.ui.obat.KelolaObatScreen
+import com.sekolah.ukscare.ui.theme.UksCareTheme
 
 /**
- * Satu-satunya Activity. M1 hanya menampilkan layar placeholder;
- * NavGraph dihubungkan pada milestone M6.
+ * Satu-satunya Activity.
+ *
+ * M5a: layar Kelola Obat ditampilkan langsung supaya bisa dicoba di emulator.
+ * NavGraph akan menggantikan bagian ini pada milestone M6.
  */
 class MainActivity : ComponentActivity() {
 
@@ -27,37 +19,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PlaceholderScreen(modifier = Modifier.padding(innerPadding))
-                }
+            UksCareTheme {
+                KelolaObatScreen()
             }
         }
-    }
-}
-
-@Composable
-private fun PlaceholderScreen(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(
-            text = stringResource(R.string.app_name),
-            style = MaterialTheme.typography.headlineMedium,
-        )
-        Text(
-            text = stringResource(R.string.placeholder_screen),
-            style = MaterialTheme.typography.bodyMedium,
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PlaceholderScreenPreview() {
-    MaterialTheme {
-        PlaceholderScreen()
     }
 }

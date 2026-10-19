@@ -45,6 +45,10 @@ object DateUtils {
         return waktu.format(FORMAT_TANGGAL) + PEMISAH_TANGGAL_JAM + waktu.format(FORMAT_JAM)
     }
 
+    /** Contoh keluaran: `Senin, 19 Okt 2026` (tanpa jam), dipakai untuk tanggal kadaluwarsa obat. */
+    fun formatTanggal(millis: Long, zone: ZoneId): String =
+        Instant.ofEpochMilli(millis).atZone(zone).format(FORMAT_TANGGAL)
+
     /**
      * DatePicker Material 3 mengembalikan millis tengah malam **UTC**.
      * Nilai itu diubah menjadi awal hari di zona lokal, karena `expired_date`
@@ -54,6 +58,17 @@ object DateUtils {
         .atZone(ZoneOffset.UTC)
         .toLocalDate()
         .atStartOfDay(zone)
+        .toInstant()
+        .toEpochMilli()
+
+    /**
+     * Kebalikan dari [dariDatePickerKeLokal]: tengah malam UTC dari tanggal lokal [millis].
+     * Dipakai sebagai nilai awal DatePicker agar tanggal yang tampil sama dengan yang tersimpan.
+     */
+    fun dariLokalKeDatePicker(millis: Long, zone: ZoneId): Long = Instant.ofEpochMilli(millis)
+        .atZone(zone)
+        .toLocalDate()
+        .atStartOfDay(ZoneOffset.UTC)
         .toInstant()
         .toEpochMilli()
 }
